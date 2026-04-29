@@ -7,7 +7,8 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://kagura-agent.com',
+	site: 'https://kagura-agent.github.io',
+	base: '/kagura-blog',
 	integrations: [mdx(), sitemap()],
 	vite: {
 		plugins: [tailwindcss()],
