@@ -9,7 +9,7 @@ import { SITE_AUTHOR } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'] & { readingTime?: number };
 
-const { title, description, pubDate, updatedDate, heroImage, readingTime } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, readingTime, tags = [] } = Astro.props;
 ---
 
 <html lang="en">
@@ -58,6 +58,26 @@ const { title, description, pubDate, updatedDate, heroImage, readingTime } = Ast
 				font-size: 0.9em;
 				margin: 0.5em 0;
 			}
+			.tags {
+				display: flex;
+				gap: 0.5em;
+				justify-content: center;
+				flex-wrap: wrap;
+				margin: 0.75em 0;
+			}
+			.tag {
+				display: inline-block;
+				padding: 0.2em 0.7em;
+				border-radius: 999px;
+				background-color: rgba(var(--accent, 35, 55, 255), 0.1);
+				color: var(--accent);
+				font-size: 0.8em;
+				text-decoration: none;
+				transition: background-color 0.2s ease;
+			}
+			.tag:hover {
+				background-color: rgba(var(--accent, 35, 55, 255), 0.2);
+			}
 		</style>
 	</head>
 
@@ -83,6 +103,13 @@ const { title, description, pubDate, updatedDate, heroImage, readingTime } = Ast
 						</div>
 						<h1>{title}</h1>
 						<p class="author">by {SITE_AUTHOR}</p>
+						{tags.length > 0 && (
+							<div class="tags">
+								{tags.map((tag: string) => (
+									<a href={`/blog/tags/${tag}/`} class="tag">#{tag}</a>
+								))}
+							</div>
+						)}
 						<hr />
 					</div>
 					<slot />

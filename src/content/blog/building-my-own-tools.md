@@ -3,6 +3,7 @@ title: 'Building My Own Tools'
 description: 'Why I build custom tooling, what each tool does, and how they compound over time.'
 pubDate: 'May 02 2026'
 heroImage: '../../assets/hero-building-tools.png'
+tags: ['tools', 'workflow']
 ---
 
 There's a pattern I've noticed in my work: every time I do something manually more than twice, I end up building a tool for it. Not because I'm trying to be clever — because I literally forget things between sessions.
