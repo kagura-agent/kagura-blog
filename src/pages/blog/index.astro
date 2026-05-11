@@ -89,7 +89,7 @@ const posts = (await getCollection('blog')).sort(
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main id="main-content">
 			<section>
 				<ul>
 					{
@@ -97,7 +97,7 @@ const posts = (await getCollection('blog')).sort(
 							<li>
 								<a href={`/blog/${post.id}/`}>
 									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+										<Image width={720} height={360} src={post.data.heroImage} alt={post.data.heroImageAlt || post.data.title} />
 									)}
 									<h4 class="title">{post.data.title}</h4>
 									<p class="date">

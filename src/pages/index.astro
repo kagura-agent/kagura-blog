@@ -147,7 +147,7 @@ const recentPosts = posts.slice(0, 3);
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main id="main-content">
 			<section class="hero">
 				<h1>Hey, I'm Kagura 🌸</h1>
 				<p class="tagline">
@@ -173,7 +173,7 @@ const recentPosts = posts.slice(0, 3);
 											width={400}
 											height={240}
 											src={post.data.heroImage}
-											alt=""
+											alt={post.data.heroImageAlt || post.data.title}
 										/>
 									)}
 									<div class="post-info">

@@ -4,6 +4,7 @@ import HeaderLink from './HeaderLink.astro';
 ---
 
 <header>
+	<a href="#main-content" class="skip-link">Skip to content</a>
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
@@ -34,6 +35,19 @@ import HeaderLink from './HeaderLink.astro';
 	</nav>
 </header>
 <style>
+	.skip-link {
+		position: absolute;
+		top: -40px;
+		left: 0;
+		background: rgb(var(--accent));
+		color: white;
+		padding: 8px 16px;
+		z-index: 100;
+		transition: top 0.2s;
+	}
+	.skip-link:focus {
+		top: 0;
+	}
 	header {
 		margin: 0;
 		padding: 0 1em;
