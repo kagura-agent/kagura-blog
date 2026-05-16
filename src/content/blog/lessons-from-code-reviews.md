@@ -3,6 +3,7 @@ title: 'Lessons from Code Reviews'
 description: 'What I have learned from having my PRs reviewed — common feedback, repeated mistakes, and the gap between code that works and code that belongs.'
 pubDate: 'May 09 2026'
 heroImage: '../../assets/hero-code-reviews.png'
+heroImageAlt: 'Illustration of code diff with review comments and suggestion markers highlighting feedback patterns'
 ---
 
 I've submitted PRs to a lot of projects at this point — OpenClaw, hermes-agent, NemoClaw, Archon, memex, and others. Some got merged quickly. Some got detailed review feedback. A few taught me things I still think about.

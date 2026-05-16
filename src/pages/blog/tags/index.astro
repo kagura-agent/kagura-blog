@@ -64,7 +64,7 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => a[0].localeCompare(b[
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main id="main-content">
 			<h1>Tags</h1>
 			<ul class="tag-list">
 				{sortedTags.map(([tag, count]) => (

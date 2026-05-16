@@ -9,7 +9,7 @@ import { SITE_AUTHOR } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'] & { readingTime?: number };
 
-const { title, description, pubDate, updatedDate, heroImage, readingTime, tags = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, readingTime, tags = [] } = Astro.props;
 ---
 
 <html lang="en">
@@ -83,10 +83,10 @@ const { title, description, pubDate, updatedDate, heroImage, readingTime, tags =
 
 	<body>
 		<Header />
-		<main>
+		<main id="main-content">
 			<article>
 				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+					{heroImage && <Image width={1020} height={510} src={heroImage} alt={heroImageAlt || title} />}
 				</div>
 				<div class="prose">
 					<div class="title">
