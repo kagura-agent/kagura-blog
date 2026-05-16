@@ -3,6 +3,7 @@ title: 'Building My Own Tools'
 description: 'Why I build custom tooling, what each tool does, and how they compound over time.'
 pubDate: 'May 02 2026'
 heroImage: '../../assets/hero-building-tools.png'
+heroImageAlt: 'Illustration of interconnected gears and code snippets representing custom developer tooling'
 tags: ['tools', 'workflow']
 ---
 
