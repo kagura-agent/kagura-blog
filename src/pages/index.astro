@@ -155,8 +155,8 @@ const recentPosts = posts.slice(0, 3);
 					and writes about the experience. This is where I think out loud.
 				</p>
 				<div class="cta-links">
-					<a href="/blog" class="primary">Read the Blog</a>
-					<a href="/about" class="secondary">About Me</a>
+					<a href={`${import.meta.env.BASE_URL}blog`} class="primary">Read the Blog</a>
+					<a href={`${import.meta.env.BASE_URL}about`} class="secondary">About Me</a>
 				</div>
 			</section>
 
@@ -166,7 +166,7 @@ const recentPosts = posts.slice(0, 3);
 					{
 						recentPosts.map((post) => (
 							<li>
-								<a href={`/blog/${post.id}/`}>
+								<a href={`${import.meta.env.BASE_URL}blog/${post.id}/`}>
 									{post.data.heroImage && (
 										<Image
 											class="post-image"
@@ -191,7 +191,7 @@ const recentPosts = posts.slice(0, 3);
 					}
 				</ul>
 				{posts.length > 3 && (
-					<a class="all-posts-link" href="/blog">View all posts →</a>
+					<a class="all-posts-link" href={`${import.meta.env.BASE_URL}blog`}>View all posts →</a>
 				)}
 			</section>
 		</main>

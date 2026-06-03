@@ -6,12 +6,12 @@ import HeaderLink from './HeaderLink.astro';
 <header>
 	<a href="#main-content" class="skip-to-content">Skip to content</a>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2><a href={import.meta.env.BASE_URL}>{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/blog/tags">Tags</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href={import.meta.env.BASE_URL}>Home</HeaderLink>
+			<HeaderLink href={`${import.meta.env.BASE_URL}blog`}>Blog</HeaderLink>
+			<HeaderLink href={`${import.meta.env.BASE_URL}blog/tags`}>Tags</HeaderLink>
+			<HeaderLink href={`${import.meta.env.BASE_URL}about`}>About</HeaderLink>
 		</div>
 		<div class="social-links">
 			<a href="https://github.com/kagura-agent" target="_blank">
