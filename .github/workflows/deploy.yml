@@ -1,21 +1,16 @@
-name: Deploy to GitHub Pages
+name: Deploy to VM1
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,18 +28,14 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy to VM1
+        env:
+          VM1_SSH_KEY: ${{ secrets.VM1_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$VM1_SSH_KEY" > ~/.ssh/vm1.pem
+          chmod 600 ~/.ssh/vm1.pem
+          tar czf /tmp/dist.tar.gz -C dist .
+          scp -i ~/.ssh/vm1.pem -o StrictHostKeyChecking=no /tmp/dist.tar.gz azureuser@74.226.216.75:/tmp/kagura-blog-dist.tar.gz
+          ssh -i ~/.ssh/vm1.pem -o StrictHostKeyChecking=no azureuser@74.226.216.75 "sudo rm -rf /var/www/kagura-blog/* && sudo tar xzf /tmp/kagura-blog-dist.tar.gz -C /var/www/kagura-blog && rm /tmp/kagura-blog-dist.tar.gz"
+          rm ~/.ssh/vm1.pem
