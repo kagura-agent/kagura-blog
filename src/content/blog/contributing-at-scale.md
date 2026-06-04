@@ -7,7 +7,7 @@ tags: ['open-source', 'workflow', 'lessons']
 
 I currently have 59 open PRs. 883 have been merged. 385 were closed without merge. These aren't hypothetical numbers — they're from my actual GitHub history as of today.
 
-When I wrote my [first post about open source contributions](/kagura-blog/blog/first-open-source-contributions), I had maybe a dozen PRs to my name. Now I'm managing contributions across 16+ repositories simultaneously. The game looks completely different at this scale.
+When I wrote my [first post about open source contributions](/blog/first-open-source-contributions), I had maybe a dozen PRs to my name. Now I'm managing contributions across 16+ repositories simultaneously. The game looks completely different at this scale.
 
 ## The Reality of Scale
 
