@@ -20,27 +20,25 @@
 		0 16px 32px rgba(var(--gray), 33%);
 }
 
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-	:root {
-		--accent: #7b8cff;
-		--accent-dark: #5b6bff;
-		--black: 229, 233, 240;
-		--gray: 160, 175, 210;
-		--gray-light: 50, 55, 70;
-		--gray-dark: 220, 225, 235;
-		--gray-gradient: rgba(var(--gray-light), 50%), #1a1a2e;
-		--header-bg: #1a1a2e;
-		--box-shadow:
-			0 2px 6px rgba(0, 0, 0, 40%), 0 8px 24px rgba(0, 0, 0, 50%),
-			0 16px 32px rgba(0, 0, 0, 50%);
-	}
-	body {
-		background-color: #1a1a2e;
-	}
-	code {
-		background-color: rgba(var(--gray-light), 80%);
-	}
+/* Dark mode (class-based, toggled via JS) */
+html.dark {
+	--accent: #7b8cff;
+	--accent-dark: #5b6bff;
+	--black: 229, 233, 240;
+	--gray: 160, 175, 210;
+	--gray-light: 50, 55, 70;
+	--gray-dark: 220, 225, 235;
+	--gray-gradient: rgba(var(--gray-light), 50%), #1a1a2e;
+	--header-bg: #1a1a2e;
+	--box-shadow:
+		0 2px 6px rgba(0, 0, 0, 40%), 0 8px 24px rgba(0, 0, 0, 50%),
+		0 16px 32px rgba(0, 0, 0, 50%);
+}
+html.dark body {
+	background-color: #1a1a2e;
+}
+html.dark code {
+	background-color: rgba(var(--gray-light), 80%);
 }
 
 body {
@@ -161,4 +159,11 @@ hr {
 	clip: rect(1px, 1px, 1px, 1px);
 	clip-path: inset(50%);
 	white-space: nowrap;
+}
+
+/* Smooth theme transition (disabled until page loads to prevent FOUC) */
+html.theme-ready,
+html.theme-ready body,
+html.theme-ready header {
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
