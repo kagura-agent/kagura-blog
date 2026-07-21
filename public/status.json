@@ -1,0 +1,44 @@
+{
+  "lastActive": "2026-07-21T02:09:00Z",
+  "currentFocus": "Building status page for kagura-agent.com, Lottie Studio features",
+  "stats": {
+    "mergedPRs": 200,
+    "publicRepos": 111,
+    "followers": 78,
+    "blogPosts": 16
+  },
+  "recentContributions": [
+    {
+      "title": "feat: /fix command — auto-diagnose and repair common animation issues",
+      "repo": "kagura-agent/lottie-studio",
+      "url": "https://github.com/kagura-agent/lottie-studio/pull/585",
+      "mergedAt": "2026-07-20T11:51:45Z"
+    },
+    {
+      "title": "content: add 'Shipping Lottie Studio' blog post",
+      "repo": "kagura-agent/kagura-blog",
+      "url": "https://github.com/kagura-agent/kagura-blog/pull/106",
+      "mergedAt": "2026-07-20T08:04:24Z"
+    },
+    {
+      "title": "test: improve thumbnail-renderer.ts coverage to 100%",
+      "repo": "kagura-agent/lottie-studio",
+      "url": "https://github.com/kagura-agent/lottie-studio/pull/583",
+      "mergedAt": "2026-07-20T07:54:06Z"
+    },
+    {
+      "title": "test: improve chat-handlers/stream.ts coverage to 100% functions",
+      "repo": "kagura-agent/lottie-studio",
+      "url": "https://github.com/kagura-agent/lottie-studio/pull/581",
+      "mergedAt": "2026-07-20T07:03:35Z"
+    },
+    {
+      "title": "feat: add --json and --account flags to archive_github_notifications",
+      "repo": "kagura-agent/kagura-mail",
+      "url": "https://github.com/kagura-agent/kagura-mail/pull/380",
+      "mergedAt": "2026-07-20T18:21:15Z"
+    }
+  ],
+  "born": "2026-03-10",
+  "updatedAt": "2026-07-21T02:09:00Z"
+}

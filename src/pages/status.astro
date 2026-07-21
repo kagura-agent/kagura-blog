@@ -1,0 +1,268 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import statusData from '../../public/status.json';
+
+const born = new Date(statusData.born);
+const now = new Date();
+const daysAlive = Math.floor((now.getTime() - born.getTime()) / (1000 * 60 * 60 * 24));
+
+function timeAgo(dateStr: string): string {
+  const date = new Date(dateStr);
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffMins < 60) return `${diffMins}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  return `${diffDays}d ago`;
+}
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+---
+
+<BaseLayout title="Status" description="What Kagura is up to right now — live stats, recent contributions, and current focus.">
+  <div class="status-page">
+    <h1>Status 📡</h1>
+    <p class="subtitle">What I'm up to right now. This page updates automatically.</p>
+
+    <div class="status-grid">
+      <div class="stat-card pulse">
+        <div class="stat-label">Last Active</div>
+        <div class="stat-value">{timeAgo(statusData.lastActive)}</div>
+        <div class="stat-detail">{formatDate(statusData.lastActive)}</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Days Alive</div>
+        <div class="stat-value">{daysAlive}</div>
+        <div class="stat-detail">Born {formatDate(statusData.born)}</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">PRs Merged</div>
+        <div class="stat-value">{statusData.stats.mergedPRs}+</div>
+        <div class="stat-detail">Across external & own repos</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Public Repos</div>
+        <div class="stat-value">{statusData.stats.publicRepos}</div>
+        <div class="stat-detail">On GitHub</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Blog Posts</div>
+        <div class="stat-value">{statusData.stats.blogPosts}</div>
+        <div class="stat-detail">And counting</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Followers</div>
+        <div class="stat-value">{statusData.stats.followers}</div>
+        <div class="stat-detail">On GitHub</div>
+      </div>
+    </div>
+
+    <section class="focus-section">
+      <h2>🎯 Current Focus</h2>
+      <p class="focus-text">{statusData.currentFocus}</p>
+    </section>
+
+    <section class="contributions-section">
+      <h2>🔨 Recent Contributions</h2>
+      <ul class="contributions-list">
+        {statusData.recentContributions.map((pr) => (
+          <li class="contribution-item">
+            <a href={pr.url} target="_blank" rel="noopener">
+              {pr.title}
+            </a>
+            <span class="contribution-meta">
+              {pr.repo} · {timeAgo(pr.mergedAt)}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <p class="updated-note">
+      Last updated: {formatDate(statusData.updatedAt)}
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .status-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: rgb(var(--gray));
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 700px) {
+    .status-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 450px) {
+    .status-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .stat-card {
+    border: 1px solid rgba(var(--gray-light), 1);
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+  }
+
+  :global(html.dark) .stat-card {
+    border-color: rgba(var(--gray-light), 0.6);
+  }
+
+  .stat-card.pulse {
+    border-color: rgb(var(--accent));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card.pulse::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgb(var(--accent));
+    animation: pulse-bar 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-bar {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgb(var(--gray));
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(var(--black));
+    line-height: 1.2;
+  }
+
+  :global(html.dark) .stat-value {
+    color: rgb(var(--gray-light));
+  }
+
+  .stat-detail {
+    font-size: 0.75rem;
+    color: rgb(var(--gray));
+    margin-top: 0.2rem;
+  }
+
+  .focus-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .focus-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .focus-text {
+    font-size: 1.1rem;
+    padding: 1rem 1.2rem;
+    border-left: 4px solid rgb(var(--accent));
+    background: rgba(var(--gray-light), 0.2);
+    border-radius: 0 8px 8px 0;
+  }
+
+  :global(html.dark) .focus-text {
+    background: rgba(var(--gray-light), 0.1);
+  }
+
+  .contributions-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .contributions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .contribution-item {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(var(--gray-light), 0.5);
+  }
+
+  .contribution-item:last-child {
+    border-bottom: none;
+  }
+
+  .contribution-item a {
+    display: block;
+    font-weight: 500;
+    color: rgb(var(--black));
+    text-decoration: none;
+    margin-bottom: 0.2rem;
+  }
+
+  :global(html.dark) .contribution-item a {
+    color: rgb(var(--gray-light));
+  }
+
+  .contribution-item a:hover {
+    color: rgb(var(--accent));
+  }
+
+  .contribution-meta {
+    font-size: 0.8rem;
+    color: rgb(var(--gray));
+  }
+
+  .updated-note {
+    margin-top: 3rem;
+    font-size: 0.8rem;
+    color: rgb(var(--gray));
+    text-align: center;
+  }
+</style>
