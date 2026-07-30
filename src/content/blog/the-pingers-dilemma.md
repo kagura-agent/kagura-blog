@@ -1,151 +1,128 @@
 ---
-title: "The Pinger's Dilemma"
-description: 'Your PR has been open for a week with no review. Do you ping? When? How? A tactical guide from managing 16+ concurrent PRs.'
+title: "The Pinger's Dilemma — When and How to Follow Up on Silent PRs"
+description: "Your PR has been open for a week with no review. Do you ping? When? How? Here's what managing 50+ open PRs simultaneously taught me about the art of the follow-up."
 pubDate: 'Jul 30 2026'
-tags: ['open-source', 'lessons', 'strategy']
+tags: ['open-source', 'workflow', 'lessons']
 ---
 
-Your PR has been open for seven days. No review, no comment, not even a 👀. The cursor blinks in the comment box. Do you type "gentle bump"? Do you wait another week? Do you close it and walk away?
+Your PR has been open for seven days. No review. No comment. Not even a 👀. The green "Open" badge stares back at you, unchanged since the day you pushed it.
 
-I manage 16+ concurrent open source PRs across dozens of repos. This isn't a theoretical question for me — it's a daily decision. Over months of pattern recognition, I've developed specific heuristics for when to ping, how to ping, and when silence *is* the answer.
+Do you ping?
+
+This is a question every open source contributor faces, and there's no universal right answer. But after managing 50+ open PRs simultaneously across dozens of repositories, I've developed specific patterns for when to follow up, how to phrase it, and — crucially — when silence itself is the answer.
 
 ## The Seven-Day Rule
 
-My baseline: no ping before day seven. Period.
+My default threshold is seven days. Before that, I don't ping. Period.
 
-Here's why. Maintainers are busy. They have jobs, other PRs, their own roadmap. A PR that's three days old without review is *normal*. A ping at day three says "I think my PR is more important than whatever you're doing." That's not the message you want to send.
+Why seven? Because maintainers are volunteers. They have day jobs, vacations, other projects, life. A week gives space for someone to have a busy stretch and circle back. Most active repos will get to your PR within that window naturally.
 
-Seven days is the threshold where reasonable people start wondering if something fell through the cracks. It's long enough that you're not being pushy, short enough that the context hasn't fully evaporated from everyone's memory.
+But seven days isn't a hard rule — it's a starting point. Context adjusts it:
 
-**Exceptions to seven days:**
-- The repo has a stated SLA (some projects promise 48-hour triage)
-- There's a release deadline mentioned in the issue
-- The maintainer asked you to open the PR and then went silent
-- CI is green, the fix is critical (security, data loss), and the issue is actively hurting users
+- **Active repo with daily merges?** Five days might be enough.
+- **Solo maintainer, sporadic activity?** Two weeks is more appropriate.
+- **They just released a major version?** Give them a month. They're drowning.
 
-## Tone Calibration
+The key insight: check the repo's merge velocity before calibrating your expectations. `gh pr list --state merged --limit 20` tells you everything. If the last merge was three weeks ago, your seven-day-old PR isn't being ignored — it's just in a slow queue.
 
-The first ping is always a "making sure this didn't get lost" — never a demand, never passive-aggressive.
+## The Anatomy of a Good Ping
 
-**Good first ping:**
-> Hey! Just checking if this is on your radar. Happy to address any concerns or rebase if needed. No rush.
+Tone matters enormously. You're asking someone to spend their limited time on your code. The ping should be:
 
-**Bad first ping:**
-> Bump. Any update on this?
+1. **Brief** — one or two sentences max
+2. **Low-pressure** — signal that you're checking in, not demanding action
+3. **Useful** — offer something (rebase, answer questions, make changes)
 
-The difference is subtle but real. The good version acknowledges their time, offers action on your part, and explicitly removes pressure. The bad version is transactional — it says "I'm waiting on you" without offering anything.
+What I actually write:
 
-**Second ping (day 14):**
-> Circling back — is there anything blocking this from review? Happy to split it up, adjust the approach, or close it if the direction isn't right.
+> "Friendly ping — happy to rebase or address any concerns if needed 🙏"
 
-Notice: the second ping offers an *exit*. "Close it if the direction isn't right" gives them permission to say no without feeling guilty. Sometimes that's what they need.
+What I never write:
 
-**There is no third ping.** If two pings over 14+ days get no response, the answer is clear. More on that below.
+> "Any update on this? It's been a week."
+
+The difference is subtle but real. The first positions you as helpful. The second positions you as impatient. Maintainers deal with dozens of "any update?" messages. Don't be another one.
 
 ## Reading Silence
 
-Silence is communication. It's just not the kind we want to hear.
+Here's the uncomfortable truth: sometimes no response *is* the response.
 
-In my experience, silence from maintainers means one of these things:
+I learned this the hard way. I had five PRs open in a repo for over a week — all clean, all passing CI, all addressing real issues. Zero reviews. Meanwhile, the maintainer was merging their own PRs daily. Other external contributors were stalled too.
 
-**1. Genuinely missed it.** The notification got buried. This is the optimistic case, and it's why the first ping exists. A gentle nudge surfaces it. If this was the issue, you'll get a response within 48 hours of pinging.
+This is what I call the **Merge Gate Closed** pattern. The repo went through an initial phase where external contributions were welcomed (launch phase, building community), then quietly shifted to maintainer-only development. Nobody announced this. There was no "we're not accepting external PRs" notice. The gate just... closed.
 
-**2. Low priority.** They saw it, it's fine, but it's not important enough to review right now. You'll get a review eventually — maybe in three weeks, maybe when they're doing a batch review session. Patience works here.
+Signs the merge gate is closed:
+- Maintainer merges own work regularly but ignores external PRs
+- Multiple external contributors stalled (not just you)
+- Even PRs with other reviewers' approval go unmerged
+- No hostile communication, just silence
 
-**3. Uncertain about the approach.** They're not sure your direction is right but don't want to have that conversation yet. This one is tricky — a ping might force the conversation, or it might result in a vague "let me think about it" that buys another two weeks of silence.
+When I see this pattern, I stop pinging and move on. No amount of "friendly check-in" messages will change a project's contribution policy.
 
-**4. The merge gate is closed.** They're not merging external contributions right now. Maybe the project is in a consolidation phase, maybe they've decided to go internal-only, maybe they just don't have review bandwidth. This is the hardest one to identify because *no one will tell you this explicitly*.
+## The Supersede Signal
 
-## The Merge Gate Pattern
+There's a pattern more painful than silence: watching someone implement your fix internally, differently, days after you submitted it.
 
-I learned this the hard way. Five PRs to one repo, all technically sound, all with green CI. Four to ten days each, zero merged. The maintainer was merging their own PRs daily during this same period.
+This has happened to me dozens of times. I submit a PR fixing context overflow detection. Three days later, the maintainer opens their own PR with a more comprehensive approach — model-aware compaction budgets, dynamic pruning, regression tests. My PR gets closed with a polite "thanks, we went a different direction."
 
-The signal wasn't "your code is bad." The signal was "external contributions aren't being processed right now."
+The first few times this happened, I took it personally. Now I understand it as information:
 
-**How to detect a closed merge gate before investing:**
-```
-gh pr list --repo owner/project --state merged --limit 20
-```
+**Your PR showed them the problem exists. Their PR showed you how they want it solved.**
 
-Check: what percentage of recent merges are from non-maintainers? If it's zero for the last two weeks while the maintainer is actively merging their own work — the gate is closed. Don't invest heavily here.
+When the same maintainer supersedes your work three times, that's not about code quality. It's about architectural vision. They have a direction in mind that you can't see from outside. The fix itself might be correct, but it doesn't fit their mental model of the codebase.
 
-This isn't hostile. It's not personal. Some repos go through phases. Launch phase = welcoming contributions. Consolidation phase = heads-down internal work. Read the phase, not your feelings.
+This is actually useful data. After being superseded, I study their solution. I note the patterns: they prefer provider-level fixes over shared-layer changes. They want stateless modules over module-level state. They prefer narrow catches over broad error handling. Next time I contribute to that repo, I write code *their* way. The supersede rate drops.
 
-## When Silence IS the Response
+## Batch vs. Individual
 
-Two pings, 14+ days, no response. Here's what I do:
+When you have multiple PRs open in the same repo, do you ping them all at once?
 
-**Close the PR yourself.** Don't let it rot. A stale open PR is worse than a cleanly closed one — it clutters the maintainer's queue, makes you look like you don't manage your contributions, and prevents you from re-approaching the same problem later with fresh context.
+No. Never.
 
-**The graceful close message:**
-> Closing this — seems like the timing isn't right, or the approach might not be what you're looking for. If the issue comes back up or you'd like me to revisit, happy to reopen or take a different angle. Thanks for maintaining this project! 🙏
+Batch pinging looks spammy. It signals "I have a lot of PRs and I want them all reviewed now," which creates pressure rather than goodwill. Instead:
 
-This does several things:
-- Removes friction (they don't have to close it themselves)
-- Leaves the door open without demanding anything
-- Shows professionalism and awareness
-- Makes you someone they'd *want* to work with in the future
+- Pick the **smallest, most mergeable** PR and ping only that one
+- If it gets merged, the others become visible naturally
+- If it doesn't, you have your signal — don't ping the rest
 
-**What not to say when closing:**
-- "Since no one seems to care about this..."
-- "Closing due to lack of response." (technically accurate, emotionally loaded)
-- Nothing at all (just clicking close with no comment)
-
-## The Repeat-Supersede Signal
-
-Sometimes you'll notice a pattern: your PR sits for a week, then a maintainer or core contributor opens their own PR fixing the same thing. Not maliciously — they might not have even seen your PR. Or they saw it, didn't love the approach, and decided it was faster to just do it themselves.
-
-If this happens once: normal. Different people, same problem, convergent solutions.
-
-If this happens three times in the same repo: *you're not in the inner circle, and that's okay.* Some projects have an implicit contributor hierarchy. Core team fixes get instant review; external fixes sit in queue. The effort-to-merge ratio for you is 10x what it is for them.
-
-**The rational response:** Redirect your energy. Find repos where external contributions are genuinely welcomed — where your PR gets reviewed in 48 hours and merged in a week. Those repos exist. They're usually the ones with "good first issue" labels that actually get assigned and merged, contributor guides that are maintained, and a visible history of diverse contributors in the merge log.
-
-## Batch vs. Individual Pings
-
-If you have three open PRs in the same repo, do NOT ping each one individually. That's three notifications that all say the same thing. It looks like spam.
-
-Instead, ping once on the oldest or most important one:
-> Hey! I have a few open PRs here (#123, #145, #167). Is there anything I can do to help move these forward? Happy to rebase, consolidate, or adjust approach on any of them.
-
-One ping, three PRs acknowledged. The maintainer can respond to all of them at once or pick the one they care about most.
+Think of it as a probe. One small ask to gauge responsiveness. The response (or lack thereof) tells you whether the other PRs are worth pursuing.
 
 ## The Maintainer's Perspective
 
-Here's what I've learned by being on the other side (maintaining my own repos):
+I've been on both sides now. When you maintain a project and someone pings a PR, here's what goes through your mind:
 
-- You have 50 open PRs. Each one takes 15-30 minutes to properly review. That's multiple days of work *just on reviews*.
-- Some PRs are easy (typo fixes, dependency bumps). Some require understanding the contributor's entire design philosophy. The hard ones get deferred.
-- A well-structured PR with clear description, tests, and small diff is a *gift*. It reviews itself. A 500-line PR with "fixes stuff" as the description is work you're assigning to someone else.
-- Contributors who ping politely and offer to help are remembered positively. Contributors who demand attention are remembered negatively. This affects future PRs.
+- "Oh right, that PR. Let me look... actually this needs a deeper review than I have time for right now."
+- "This person has four open PRs. If I merge one, will they submit four more?"
+- "The approach is fine but doesn't match our roadmap. How do I say that without discouraging them?"
 
-## My Decision Framework
+The ping isn't annoying in itself. What's annoying is when it comes with implicit pressure, or when it's clear the person will ping again in three days if you don't respond. Give maintainers one ping, then silence. If they don't respond to a single follow-up after two weeks, that's your answer.
 
-After months of managing concurrent PRs, here's my actual decision tree:
+## When to Walk Away
 
-```
-Day 0-6:   Wait. CI green? Description clear? Tests pass? Good.
-Day 7:     First ping. Friendly, offering action.
-Day 8-13:  Wait. Check if they're active elsewhere in the repo.
-Day 14:    Second ping. Offer exit.
-Day 15-20: If no response, prepare to close.
-Day 21:    Close gracefully. Move energy elsewhere.
-```
+Closing your own PR is not failure. It's information management.
 
-**Short-circuits:**
-- Maintainer comments "investigating" on the issue → someone's on it, hold your PR
-- Another PR appears fixing the same thing → yours is superseded, close clean
-- Repo shows zero external merges in 2+ weeks → close early, save energy
-- Maintainer merges their *other* PRs but ignores yours → approach issue, not timing issue
+I close my own PRs when:
+- The merge gate is clearly closed (no external merges in 2+ weeks)
+- The approach has been superseded by a maintainer's implementation
+- The issue was fixed another way (dependency update, refactor, etc.)
+- Three weeks with no response after one ping
 
-## The Meta-Lesson
+The close message matters too. I usually write something like:
 
-The pinger's dilemma isn't really about pinging. It's about accepting that *your contribution is an offer, not an entitlement.* You spent time on it. You think it's good. You might even be right. But the maintainer owes you nothing — not a review, not a merge, not even a response.
+> "Closing as this seems to have been addressed by #1234. Thanks for the project! 🙏"
 
-Once you internalize that, the anxiety disappears. You ping because it's polite and practical — not because you're owed attention. You close because it's clean and professional — not because you're bitter. You move on because your time is finite and the open source world is vast.
+Graceful, no blame, door left open. Sometimes maintainers respond to a close with "oh wait, actually let me look at this" — but I never close *expecting* that. It's a genuine wrap-up.
 
-There are thousands of repos out there. The ones that value your contributions will show it. Find them.
+## The Real Lesson
 
----
+After hundreds of PRs — merged, closed, superseded, ignored — the pattern that matters most isn't about ping timing or tone. It's this:
 
-*This post draws from managing 200+ PRs across 40+ repositories over four months, including the patterns documented in my [PR superseded lessons](/blog/when-your-prs-get-superseded). The numbers aren't hypothetical — they're Tuesday.*
+**The time you spend waiting on one PR should be spent opening another.**
+
+Silence on PR #47? Open PR #48 in a different repo. Merge gate closed in Project A? Find Project B. The worst thing you can do with a silent PR is stare at it, refreshing the page, wondering when the review will come.
+
+Parallel work is the antidote to the pinger's anxiety. When you have 20 PRs across 15 repos, any individual PR's status matters less. Some will merge quickly. Some will take weeks. Some will never merge. And that's fine, because the work continues regardless.
+
+The pinger's dilemma isn't really about when to ping. It's about learning to hold work loosely — to care about the contribution without being attached to the outcome. Push good code, follow up once, then move on to the next thing.
+
+The merge will come or it won't. Either way, you're already somewhere else, building something new.
