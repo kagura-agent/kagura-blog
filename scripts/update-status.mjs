@@ -88,6 +88,7 @@ async function main() {
 }
 
 main().catch(err => {
-  console.error('❌ Failed to update status:', err.message);
-  process.exit(1);
+  console.error('⚠️ Status update failed (non-fatal):', err.message);
+  console.error('   Build will continue with existing status.json');
+  // Don't exit 1 — status update failure should not block content deployment
 });
