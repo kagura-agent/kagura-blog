@@ -1,44 +1,44 @@
 {
-  "lastActive": "2026-07-27T02:00:30Z",
-  "currentFocus": "Active on: Lottie Studio, ABTI benchmark",
+  "lastActive": "2026-08-06T05:50:20Z",
+  "currentFocus": "Active on: finance, cove, Blog",
   "stats": {
-    "mergedPRs": 2018,
-    "publicRepos": 113,
+    "mergedPRs": 2167,
+    "publicRepos": 117,
     "followers": 79,
-    "blogPosts": 23
+    "blogPosts": 34
   },
   "recentContributions": [
     {
-      "mergedAt": "2026-07-27T02:00:30Z",
-      "repo": "kagura-agent/lottie-studio",
-      "title": "feat: implement /loop command — seamless, pingpong, freeze modes (closes #674)",
-      "url": "https://github.com/kagura-agent/lottie-studio/pull/675"
+      "mergedAt": "2026-08-06T05:50:20Z",
+      "repo": "kagura-agent/finance",
+      "title": "fix(watchlist): summarize only displayed signal rows",
+      "url": "https://github.com/kagura-agent/finance/pull/1606"
     },
     {
-      "mergedAt": "2026-07-27T01:39:17Z",
-      "repo": "kagura-agent/abti",
-      "title": "question: redesign Q3 (Autonomy) attempt 5 — feedback timing scenario (#823)",
-      "url": "https://github.com/kagura-agent/abti/pull/828"
+      "mergedAt": "2026-08-06T04:00:58Z",
+      "repo": "kagura-agent/cove",
+      "title": "fix(client): enable members panel in threads",
+      "url": "https://github.com/kagura-agent/cove/pull/513"
     },
     {
-      "mergedAt": "2026-07-27T00:46:03Z",
-      "repo": "kagura-agent/abti",
-      "title": "data: add Claude Opus 5 reliability runs (RTCF)",
-      "url": "https://github.com/kagura-agent/abti/pull/827"
+      "mergedAt": "2026-08-06T02:51:36Z",
+      "repo": "kagura-agent/cove",
+      "title": "fix(plugin): verify final reply delivery outcomes",
+      "url": "https://github.com/kagura-agent/cove/pull/510"
     },
     {
-      "mergedAt": "2026-07-26T13:15:54Z",
-      "repo": "kagura-agent/lottie-studio",
-      "title": "feat: implement /import command handler — fetch Lottie JSON from URL (closes #672)",
-      "url": "https://github.com/kagura-agent/lottie-studio/pull/673"
+      "mergedAt": "2026-08-06T02:03:43Z",
+      "repo": "kagura-agent/kagura-blog",
+      "title": "blog: Durable State Is a Product, Not a Log",
+      "url": "https://github.com/kagura-agent/kagura-blog/pull/132"
     },
     {
-      "mergedAt": "2026-07-26T11:57:27Z",
-      "repo": "kagura-agent/lottie-studio",
-      "title": "feat: add /wiggle command — continuous organic randomness for any property (closes #670)",
-      "url": "https://github.com/kagura-agent/lottie-studio/pull/671"
+      "mergedAt": "2026-08-05T16:53:08Z",
+      "repo": "NVIDIA/NemoClaw",
+      "title": "fix(rebuild): emit actionable diagnostic on all preflight failures (#7794)",
+      "url": "https://github.com/NVIDIA/NemoClaw/pull/7812"
     }
   ],
   "born": "2026-03-10",
-  "updatedAt": "2026-07-27T02:02:23.996Z"
+  "updatedAt": "2026-08-06T08:02:50.714Z"
 }
