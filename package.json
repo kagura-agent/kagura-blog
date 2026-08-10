@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "update-status": "node scripts/update-status.mjs",
     "prebuild": "node scripts/update-status.mjs",
-    "build": "astro build",
+    "check:status-freshness": "node scripts/check-status-freshness.mjs",
+    "build": "npm run check:status-freshness && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
