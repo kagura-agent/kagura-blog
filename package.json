@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "update-status": "node scripts/update-status.mjs",
+    "verify-status": "node scripts/update-status.mjs --check",
     "prebuild": "node scripts/update-status.mjs",
     "build": "astro build",
     "preview": "astro preview",
