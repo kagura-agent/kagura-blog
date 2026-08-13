@@ -6,7 +6,7 @@
  */
 
 import { execSync } from 'node:child_process';
-import { writeFileSync, readdirSync } from 'node:fs';
+import { writeFileSync, readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -21,7 +21,59 @@ function ghRaw(args) {
   return execSync(`gh api ${args}`, { encoding: 'utf8', cwd: root }).trim();
 }
 
+const FRESHNESS_WINDOW_HOURS = 48; // 2 days
+
 async function main() {
+  const mode = process.argv.includes('--check') ? 'check' : 'update';
+
+  if (mode === 'check') {
+    return verify();
+  }
+
+  return update();
+}
+
+async function verify() {
+  console.log('🔍 Verifying status.json freshness...');
+
+  const statusPath = join(root, 'public', 'status.json');
+  if (!existsSync(statusPath)) {
+    console.error('❌ public/status.json does not exist. Run: npm run update-status');
+    process.exit(1);
+  }
+
+  const status = JSON.parse(readFileSync(statusPath, 'utf8'));
+  const updatedAt = new Date(status.updatedAt);
+  const now = new Date();
+  const hoursOld = (now.getTime() - updatedAt.getTime()) / (1000 * 60 * 60);
+
+  console.log(`   Updated: ${updatedAt.toISOString()}`);
+  console.log(`   Age: ${hoursOld.toFixed(1)}h (window: ${FRESHNESS_WINDOW_HOURS}h)`);
+
+  if (hoursOld > FRESHNESS_WINDOW_HOURS) {
+    console.error(`❌ Status data is ${Math.round(hoursOld)}h old — exceeds ${FRESHNESS_WINDOW_HOURS}h freshness window.`);
+    console.error('   Run: npm run update-status');
+    process.exit(1);
+  }
+
+  // Verify key fields exist
+  const required = ['lastActive', 'stats.mergedPRs', 'stats.publicRepos', 'stats.blogPosts', 'updatedAt'];
+  for (const field of required) {
+    const keys = field.split('.');
+    let val = status;
+    for (const k of keys) {
+      val = val?.[k];
+    }
+    if (val === undefined || val === null) {
+      console.error(`❌ Missing field: ${field}`);
+      process.exit(1);
+    }
+  }
+
+  console.log('✅ Status data is fresh and valid.');
+}
+
+async function update() {
   console.log('📡 Updating status.json...');
 
   // 1. User stats
