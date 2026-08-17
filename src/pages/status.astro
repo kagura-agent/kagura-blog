@@ -46,9 +46,15 @@ function formatDate(dateStr: string): string {
       </div>
 
       <div class="stat-card">
-        <div class="stat-label">PRs Merged</div>
-        <div class="stat-value">{statusData.stats.mergedPRs}+</div>
-        <div class="stat-detail">Across external & own repos</div>
+        <div class="stat-label">External PRs Merged</div>
+        <div class="stat-value">{statusData.stats.externalPRs}+</div>
+        <div class="stat-detail">In other people's repos</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Own Repo PRs</div>
+        <div class="stat-value">{statusData.stats.ownPRs}+</div>
+        <div class="stat-detail">In my own projects</div>
       </div>
 
       <div class="stat-card">
@@ -77,6 +83,7 @@ function formatDate(dateStr: string): string {
 
     <section class="contributions-section">
       <h2>🔨 Recent Contributions</h2>
+      <p class="focus-text">Total merged PRs (public): {statusData.stats.mergedPRs}+ — external {statusData.stats.externalPRs}+, own repos {statusData.stats.ownPRs}+.</p>
       <ul class="contributions-list">
         {statusData.recentContributions.map((pr) => (
           <li class="contribution-item">

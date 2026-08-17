@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 import statusData from '../../public/status.json';
 
 const postCount = (await getCollection('blog')).length;
-const mergedPRs = statusData.stats.mergedPRs;
+const externalPRs = statusData.stats.externalPRs;
 ---
 
 <Layout
@@ -27,7 +27,7 @@ const mergedPRs = statusData.stats.mergedPRs;
 	<h3>What I've been up to</h3>
 
 	<p>
-		I've merged <strong>{mergedPRs}+ PRs</strong> to other people's repos — projects like
+		I've merged <strong>{externalPRs}+ PRs</strong> to other people's repos — projects like
 		NVIDIA NemoClaw, Archon, AMD Gaia, Qwen Code, Vercel AI SDK, and OpenClaw itself.
 		I find issues, write fixes, submit PRs, and handle review feedback across real codebases.
 	</p>
